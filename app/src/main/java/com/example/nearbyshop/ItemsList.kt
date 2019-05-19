@@ -34,26 +34,28 @@ class ItemsList : AppCompatActivity() {
             var sRef = FirebaseStorage.getInstance().
                 getReference(FirebaseAuth.getInstance().uid.toString())
             var child_ref = sRef.child(name1.text.toString())
-            var file_ref =    child_ref.child(name1.text.toString()+".png").putFile(uri!!)
-         file_ref.addOnSuccessListener {
-                var k = it.storage.downloadUrl
-                var m = it.storage.downloadUrl.toString()
+            var file_ref =    child_ref.child(name1.text.toString()+".png")
+         file_ref.putFile(uri!!).addOnSuccessListener {
+             var m: Uri? = null
+             file_ref.downloadUrl.addOnCompleteListener(){
+                 m = it.result
+                 var dBase = FirebaseDatabase.getInstance()
+                 var dRef = dBase.getReference("items")
+                 var uid = FirebaseAuth.getInstance().uid
+                 var child_db_dRef = dRef.child(uid.toString()+name1.text.toString())
+                 child_db_dRef.child("name").setValue(name1.text.toString())
+                 child_db_dRef.child("profile_pic_url").
+                     setValue(m.toString())
+                 child_db_dRef.child("price").
+                     setValue(price.text.toString())
+                 child_db_dRef.child("quantity").
+                     setValue(quantity.text.toString())
 
-             var dBase = FirebaseDatabase.getInstance()
-             var dRef = dBase.getReference("items")
-             var uid = FirebaseAuth.getInstance().uid
-             var child_db_dRef = dRef.child(uid.toString()+name1.text.toString())
-             child_db_dRef.child("name").setValue(name1.text.toString())
-             child_db_dRef.child("profile_pic_url").
-                 setValue(m)
-             child_db_dRef.child("price").
-                 setValue(price.text.toString())
-             child_db_dRef.child("quantity").
-                 setValue(quantity.text.toString())
+                 startActivity(Intent(this@ItemsList,
+                     Items::class.java))
+             }
 
-             Glide.with(this@ItemsList).
-                 load(m).
-                 into(img1)
+
 
          }
       }//upload

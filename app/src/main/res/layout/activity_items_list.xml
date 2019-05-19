@@ -3,7 +3,7 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical ">
+            android:orientation="vertical">
 
     <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -48,12 +48,7 @@
 
 
     </LinearLayout>
-    <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/img1"
-            android:src="@drawable/ic_launcher_background"
-    />
+
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
