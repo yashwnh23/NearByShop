@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AlertDialog
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -50,13 +51,12 @@ class ItemsList : AppCompatActivity() {
                      setValue(price.text.toString())
                  child_db_dRef.child("quantity").
                      setValue(quantity.text.toString())
+                 child_db_dRef.child("list").
+                     setValue(spin.selectedItem.toString())
 
                  startActivity(Intent(this@ItemsList,
                      Items::class.java))
              }
-
-
-
          }
       }//upload
 

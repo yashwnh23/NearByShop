@@ -3,9 +3,11 @@ package com.example.nearbyshop
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.android.synthetic.main.activity_items_list.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -13,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         var fAuth = FirebaseAuth.getInstance()
         login.setOnClickListener {
             fAuth.signInWithEmailAndPassword(

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Near By Shop</string>
+    <string-array name="planets_array">
+        <item>List</item>
+        <item>Grocery</item>
+        <item>Beverages</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 </resources>
