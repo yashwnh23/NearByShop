@@ -1,5 +1,6 @@
 package com.example.nearbyshop
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -75,5 +76,12 @@ class Items : AppCompatActivity() {
                  }
             }
         })
+
+        items.setOnClickListener {
+            startActivity(
+                Intent(this@Items,
+                    ItemsList::class.java)
+            )
+        }
     }
 }

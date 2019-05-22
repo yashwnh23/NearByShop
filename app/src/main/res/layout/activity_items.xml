@@ -10,5 +10,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/itemView"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/itemView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="+Add Items"
+            android:id="@+id/items"
+    />
 
 </android.support.constraint.ConstraintLayout>

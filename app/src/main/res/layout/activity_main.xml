@@ -44,6 +44,9 @@
             android:layout_height="wrap_content"
             android:text="Register"
             android:id="@+id/reg"
+            android:textSize="16pt"
+            android:layout_marginTop="10pt"
+            android:layout_marginLeft="50pt"
 
     />
 
