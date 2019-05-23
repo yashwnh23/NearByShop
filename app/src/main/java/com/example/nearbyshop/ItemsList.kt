@@ -35,12 +35,6 @@ class ItemsList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items_list)
         var z = 100
-        var ed = arrayOf<EditText>()
-        var ed1 = arrayOf<EditText>()
-        var ed2 = arrayOf<EditText>()
-        var img2 = arrayOf<ImageView>()
-        var sp1 = arrayOf<Spinner>()
-        var j = 0
 
       upload.setOnClickListener {
 
@@ -66,10 +60,12 @@ class ItemsList : AppCompatActivity() {
                      setValue(quantity.text.toString())
                  child_db_dRef.child("list").
                      setValue(spin.selectedItem.toString())
+                 startActivity(
+                     Intent(this@ItemsList,
+                         Items::class.java)
+                 )
              }
          }
-
-
       }//upload
 
 
@@ -99,19 +95,16 @@ class ItemsList : AppCompatActivity() {
           et.layoutParams = p
           et.id = z + 2
           et.setHint("Name of product")
-          ed.set(j,et)
 
           val et1 = EditText(this)
           et1.layoutParams = p
           et1.id = z + 1
           et1.setHint("Quantity")
-          ed1.set(j,et1)
 
           val et2 = EditText(this)
           et2.layoutParams = p
           et2.id = z + 3
           et2.setHint("Price")
-          ed2.set(j,et2)
 
 
           val img1 = ImageView (this)
@@ -122,7 +115,6 @@ class ItemsList : AppCompatActivity() {
               x=img1
               imageEnroll(img1)
           }
-          img2.set(j,img1)
 
 
 
@@ -130,7 +122,6 @@ class ItemsList : AppCompatActivity() {
           spin.id = z + 5
           spin.layoutParams = s
           arrayAdapter(spin)
-          sp1.set(j,spin)
 
 
 
@@ -146,7 +137,6 @@ class ItemsList : AppCompatActivity() {
           ll.addView(spin)
           ll.addView(view)
           z+5
-          j++
       }
 
       img.setOnClickListener {
