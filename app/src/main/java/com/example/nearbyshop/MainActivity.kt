@@ -12,32 +12,45 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
+    var fAuth:FirebaseAuth?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var fAuth = FirebaseAuth.getInstance()
+         fAuth = FirebaseAuth.getInstance()
         login.setOnClickListener {
-            fAuth.signInWithEmailAndPassword(
+            fAuth!!.signInWithEmailAndPassword(
                 email.text.toString(), password.text.toString()
             ).addOnCompleteListener {
-                if(it.isSuccessful)
-                    startActivity(Intent(this@MainActivity,
-                        ItemsList::class.java))
-
+                if (it.isSuccessful)
+                    startActivity(
+                        Intent(
+                            this@MainActivity,
+                            ItemsList::class.java
+                        )
+                    )
                 else
-                    Toast.makeText(this@MainActivity,"Auth Failed",
-                        Toast.LENGTH_LONG).show()
+
+                    reg.setOnClickListener {
+                        startActivity(
+                            Intent(
+                                this@MainActivity,
+                                RegisterActivity::class.java
+                            )
+                        )
+                    }
+
+
             }
-        }
-
-        reg.setOnClickListener{
+        }}
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = fAuth!!.getCurrentUser()
+        if(currentUser != null){
             startActivity(Intent(this@MainActivity,
-                RegisterActivity::class.java))
+                Items ::class.java))
         }
-
-
-
     }
 
 }

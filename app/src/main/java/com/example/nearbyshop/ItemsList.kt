@@ -31,18 +31,27 @@ import kotlin.math.sign
 
 class ItemsList : AppCompatActivity() {
     var x:ImageView? = null
+    var uri = ArrayList<Uri>()
+    var l:Uri?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items_list)
         var z = 100
+        var ed = ArrayList<EditText>()
+        var ed1 = ArrayList<EditText>()
+        var ed2 = ArrayList<EditText>()
+        var spin1 = ArrayList<Spinner>()
+        var img2 = ArrayList<ImageView>()
+
+
 
       upload.setOnClickListener {
-
+          for(j in uri.size downTo 1) {
             var sRef = FirebaseStorage.getInstance().
                 getReference(FirebaseAuth.getInstance().uid.toString())
-            var child_ref = sRef.child(name1.text.toString())
-            var file_ref =    child_ref.child(name1.text.toString()+".png")
-         file_ref.putFile(uri!!).addOnSuccessListener {
+            var child_ref = sRef.child(ed.get(j-1).text.toString())
+            var file_ref =    child_ref.child(ed.get(j-1).toString()+".png")
+         file_ref.putFile(uri.get(j-1)!!).addOnSuccessListener {
              var m: Uri? = null
 
              file_ref.downloadUrl.addOnCompleteListener(){
@@ -50,27 +59,35 @@ class ItemsList : AppCompatActivity() {
                  var dBase = FirebaseDatabase.getInstance()
                  var dRef = dBase.getReference("items")
                  var uid = FirebaseAuth.getInstance().uid
-                 var child_db_dRef = dRef.child(uid.toString()+name1.text.toString())
-                 child_db_dRef.child("name").setValue(name1.text.toString())
+                 var child_db_dRef = dRef.child(uid.toString()+ed.get(j-1).text.toString())
+                 child_db_dRef.child("name").setValue(ed.get(j-1).text.toString())
                  child_db_dRef.child("profile_pic_url").
                      setValue(m.toString())
                  child_db_dRef.child("price").
-                     setValue(price.text.toString())
+                     setValue(ed1.get(j-1).text.toString())
                  child_db_dRef.child("quantity").
-                     setValue(quantity.text.toString())
+                     setValue(ed2.get(j-1).text.toString())
                  child_db_dRef.child("list").
-                     setValue(spin.selectedItem.toString())
+                     setValue(spin1.get(j-1).selectedItem.toString())
                  startActivity(
                      Intent(this@ItemsList,
                          Items::class.java)
                  )
              }
          }
+
+
+         }
+
       }//upload
 
-
-
-
+     sign.setOnClickListener {
+         FirebaseAuth.getInstance().signOut()
+         startActivity(
+             Intent(this@ItemsList,
+                 MainActivity::class.java)
+         )
+     }
      listItems.setOnClickListener {
 
          startActivity(Intent(this@ItemsList,
@@ -93,36 +110,38 @@ class ItemsList : AppCompatActivity() {
 
           val et = EditText(this)
           et.layoutParams = p
-          et.id = z + 2
           et.setHint("Name of product")
+          ed.add(et)
 
           val et1 = EditText(this)
           et1.layoutParams = p
           et1.id = z + 1
           et1.setHint("Quantity")
+          ed1.add(et1)
 
           val et2 = EditText(this)
           et2.layoutParams = p
           et2.id = z + 3
           et2.setHint("Price")
+          ed2.add(et2)
 
 
           val img1 = ImageView (this)
           img1.layoutParams = p1
           img1.id = z + 4
-          img1.setImageURI(uri)
+          img1.setImageURI(l)
           img1.setOnClickListener{
               x=img1
               imageEnroll(img1)
           }
-
+          img2.add(img1)
 
 
           var spin = Spinner(this)
           spin.id = z + 5
           spin.layoutParams = s
           arrayAdapter(spin)
-
+          spin1.add(spin)
 
 
           var view = View(this)
@@ -137,17 +156,14 @@ class ItemsList : AppCompatActivity() {
           ll.addView(spin)
           ll.addView(view)
           z+5
-      }
+      }//add
 
-      img.setOnClickListener {
-        x=img
-        imageEnroll(img)
-      }//img
+
 
 
     } // onCreate( )
 
-    var uri:Uri? = null
+
 
     fun arrayAdapter(spin:Spinner){
         val list = arrayOf("list", "Grocery", "Beverages" , "Choclates")
@@ -202,12 +218,16 @@ class ItemsList : AppCompatActivity() {
         if(requestCode == 123 && resultCode == Activity.RESULT_OK)
         {
             var bmp = data?.extras?.get("data") as Bitmap
-            uri = getImageUri(this@ItemsList, bmp)
-            x!!.setImageURI(uri)
+            var z:Uri=getImageUri(this@ItemsList, bmp)
+            uri.add(z)
+            x!!.setImageURI(z)
+            l=z
         }else  if(requestCode == 124 && resultCode == Activity.RESULT_OK)
         {
-            uri = data?.data
-            x!!.setImageURI(uri)
+            var z:Uri? = data?.data
+            uri.add(z!!)
+            x!!.setImageURI(z)
+            l=z
         }
 
     }  // onActivityResult( )
