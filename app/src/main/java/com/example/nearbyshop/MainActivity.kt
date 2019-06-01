@@ -24,57 +24,24 @@ class MainActivity : AppCompatActivity() {
                 email.text.toString(), password.text.toString()
             ).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    var y = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().uid.toString())
-                        .orderByChild("email").equalTo(email.text.toString());
-                    y.addValueEventListener(
-                        object : ValueEventListener {
-                            override fun onCancelled(p0: DatabaseError) {
-                                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                            }
-
-                            override fun onDataChange(p0: DataSnapshot) {
-                                var items = p0.children
-                                items.forEach {
-                                    if (it.key.equals("user")) {
-                                        if (it.value.toString() == "admin") {
-                                            startActivity(
-                                                Intent(
-                                                    this@MainActivity,
-                                                    ItemsList::class.java
-                                                )
-                                            )
-                                        }
-                                        else{
-                                            startActivity(
-                                                Intent(
-                                                    this@MainActivity,
-                                                    Items::class.java
-                                                )
-                                            )
-                                            }
-                                        }
-                                    }
-                                }
-
-
-                        }
+                    startActivity(
+                        Intent(
+                            this@MainActivity,
+                            ItemsList::class.java
+                        )
                     )
-
-
                 }
                 else
-
-                    reg.setOnClickListener {
-                        startActivity(
-                            Intent(
-                                this@MainActivity,
-                                RegisterActivity::class.java
-                            )
-                        )
-                    }
+                    Toast.makeText(this@MainActivity,"Login Failed",Toast.LENGTH_LONG).show()
             }
-
-
+        }
+        reg.setOnClickListener {
+            startActivity(
+                Intent(
+                    this@MainActivity,
+                    RegisterActivity::class.java
+                )
+            )
         }
     }
 
