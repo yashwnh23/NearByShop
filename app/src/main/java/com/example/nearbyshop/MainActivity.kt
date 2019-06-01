@@ -7,28 +7,61 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_items_list.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    var fAuth:FirebaseAuth?=null
+    var fAuth: FirebaseAuth? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-         fAuth = FirebaseAuth.getInstance()
+        fAuth = FirebaseAuth.getInstance()
         login.setOnClickListener {
             fAuth!!.signInWithEmailAndPassword(
                 email.text.toString(), password.text.toString()
             ).addOnCompleteListener {
-                if (it.isSuccessful)
-                    startActivity(
-                        Intent(
-                            this@MainActivity,
-                            ItemsList::class.java
-                        )
+                if (it.isSuccessful) {
+                    var y = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().uid.toString())
+                        .orderByChild("email").equalTo(email.text.toString());
+                    y.addValueEventListener(
+                        object : ValueEventListener {
+                            override fun onCancelled(p0: DatabaseError) {
+                                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                            }
+
+                            override fun onDataChange(p0: DataSnapshot) {
+                                var items = p0.children
+                                items.forEach {
+                                    if (it.key.equals("user")) {
+                                        if (it.value.toString() == "admin") {
+                                            startActivity(
+                                                Intent(
+                                                    this@MainActivity,
+                                                    ItemsList::class.java
+                                                )
+                                            )
+                                        }
+                                        else{
+                                            startActivity(
+                                                Intent(
+                                                    this@MainActivity,
+                                                    Items::class.java
+                                                )
+                                            )
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                        }
                     )
+
+
+                }
                 else
 
                     reg.setOnClickListener {
@@ -39,17 +72,23 @@ class MainActivity : AppCompatActivity() {
                             )
                         )
                     }
-
-
             }
-        }}
+
+
+        }
+    }
+
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = fAuth!!.getCurrentUser()
-        if(currentUser != null){
-            startActivity(Intent(this@MainActivity,
-                Items ::class.java))
+        if (currentUser != null) {
+            startActivity(
+                Intent(
+                    this@MainActivity,
+                    Items::class.java
+                )
+            )
         }
     }
 
