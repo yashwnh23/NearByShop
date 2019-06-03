@@ -1,15 +1,19 @@
 package com.example.nearbyshop
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.view.Gravity
 import android.view.View
@@ -59,7 +63,7 @@ class ItemsList : AppCompatActivity() {
                  var dBase = FirebaseDatabase.getInstance()
                  var dRef = dBase.getReference("items")
                  var uid = FirebaseAuth.getInstance().uid
-                 var child_db_dRef = dRef.child(uid.toString()+ed.get(j-1).text.toString())
+                 var child_db_dRef = dRef.child(uid.toString()+"/"+ed.get(j-1).text.toString())
                  child_db_dRef.child("name").setValue(ed.get(j-1).text.toString())
                  child_db_dRef.child("profile_pic_url").
                      setValue(m.toString())
@@ -186,16 +190,31 @@ class ItemsList : AppCompatActivity() {
         aDialog.setMessage("Take a photo/select a file for adding an attachment")
         aDialog.setPositiveButton("Camera",
             DialogInterface.OnClickListener { dialogInterface, i ->
-                var i = Intent( )
-                i.setAction("android.media.action.IMAGE_CAPTURE")
-                startActivityForResult(i,123)
+                if (ContextCompat.checkSelfPermission(this@ItemsList, Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this@ItemsList, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                    // Permission is not granted
+                    var i = Intent( )
+                    i.setAction("android.media.action.IMAGE_CAPTURE")
+                    startActivityForResult(i,123)
+                }
+                else{
+                    ActivityCompat.requestPermissions(this@ItemsList, arrayOf( Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE),123)
+                }
+
             })
         aDialog.setNegativeButton("File Explorer",
             DialogInterface.OnClickListener { dialogInterface, i ->
-                var i = Intent( )
-                i.setAction(Intent.ACTION_GET_CONTENT)
-                i.setType("*/*")
-                startActivityForResult(i,124)
+                if (ContextCompat.checkSelfPermission(this@ItemsList, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                    var i = Intent()
+                    i.setAction(Intent.ACTION_GET_CONTENT)
+                    i.setType("*/*")
+                    startActivityForResult(i, 124)
+                }
+                else{
+                    ActivityCompat.requestPermissions(this@ItemsList, arrayOf( Manifest.permission.WRITE_EXTERNAL_STORAGE),123)
+                }
 
             })
         aDialog.setNeutralButton("Cancel",

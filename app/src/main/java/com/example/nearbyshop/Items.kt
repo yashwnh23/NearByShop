@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_items.*
@@ -21,7 +23,7 @@ class Items : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items)
 
-        val firebase = FirebaseDatabase.getInstance().getReference("items")
+        val firebase = FirebaseDatabase.getInstance().getReference("items/"+FirebaseAuth.getInstance().uid.toString())
         firebase.addValueEventListener(
         object : ValueEventListener {
 
@@ -71,6 +73,14 @@ class Items : AppCompatActivity() {
                          v.price.text = list.get(position).price
                          v.quantity.text = list.get(position).quantity
                          v.edit.text = "Edit"
+                         v.edit.setOnClickListener {
+                             val intent = Intent(this@Items,EditItem::class.java)
+                             intent.putExtra("name",list.get(position).name)
+                             intent.putExtra("price",list.get(position).price)
+                             intent.putExtra("quantity",list.get(position).quantity)
+
+                             startActivity(intent)
+                         }
                          Glide.with(this@Items).
                              load(list.get(position).profile_pic_url).
                              into(v.img)
