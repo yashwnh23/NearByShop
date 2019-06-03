@@ -24,12 +24,39 @@ class MainActivity : AppCompatActivity() {
                 email.text.toString(), password.text.toString()
             ).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    startActivity(
-                        Intent(
-                            this@MainActivity,
-                            ItemsList::class.java
-                        )
-                    )
+                   var ref = FirebaseDatabase.getInstance().getReference("users")
+                      .orderByChild("email").equalTo(email.text.toString())
+                    ref.addValueEventListener(object : ValueEventListener {
+                        override fun onCancelled(p0: DatabaseError) {
+                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+                        }
+
+                        override fun onDataChange(p0: DataSnapshot) {
+                            var snap=p0.children
+                                snap.forEach {
+                                   if(it.child("user").value.toString() == "admin") {
+                                       startActivity(
+                                           Intent(
+                                               this@MainActivity,
+                                               ItemsList::class.java
+                                           )
+                                       )
+                                   }
+                                   else{
+                                       startActivity(
+                                           Intent(
+                                               this@MainActivity,
+                                               Items::class.java
+                                           )
+                                       )
+                                   }
+
+                                }
+                            }
+                    })
+
+
                 }
                 else
                     Toast.makeText(this@MainActivity,"Login Failed",Toast.LENGTH_LONG).show()

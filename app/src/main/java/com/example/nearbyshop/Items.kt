@@ -33,19 +33,25 @@ class Items : AppCompatActivity() {
 
                  var items = p0.children
                  var list = mutableListOf<Item>()
-
                  items.forEach{
                      var item = Item( )
                      var childOfItems = it.children
                      childOfItems.forEach{
-                         when(it.key){
-                             "name" -> {item.name  = it.value.toString() }
-                             "price" -> {item.price  = it.value.toString() }
-                             "quantity" -> { item.quantity = it.value.toString()}
-                             "profile_pic_url" -> {item.profile_pic_url  = it.value.toString() }
-
-
+                         when(it.key) {
+                             "name" -> {
+                                 item.name = it.value.toString()
                              }
+                             "price" -> {
+                                 item.price = it.value.toString()
+                             }
+                             "quantity" -> {
+                                 item.quantity = it.value.toString()
+                             }
+                             "profile_pic_url" -> {
+                                 item.profile_pic_url = it.value.toString()
+                             }
+                             ""->{}
+                         }
                      }
                      list.add(item)
                  }
@@ -64,6 +70,7 @@ class Items : AppCompatActivity() {
                          v.name.text = list.get(position).name
                          v.price.text = list.get(position).price
                          v.quantity.text = list.get(position).quantity
+                         v.edit.text = "Edit"
                          Glide.with(this@Items).
                              load(list.get(position).profile_pic_url).
                              into(v.img)
