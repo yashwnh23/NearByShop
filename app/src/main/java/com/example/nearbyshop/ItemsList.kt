@@ -50,37 +50,37 @@ class ItemsList : AppCompatActivity() {
 
 
       upload.setOnClickListener {
-          for(j in uri.size downTo 1) {
-            var sRef = FirebaseStorage.getInstance().
-                getReference(FirebaseAuth.getInstance().uid.toString())
-            var child_ref = sRef.child(ed.get(j-1).text.toString())
-            var file_ref =    child_ref.child(ed.get(j-1).toString()+".png")
-         file_ref.putFile(uri.get(j-1)!!).addOnSuccessListener {
-             var m: Uri? = null
+          for(j in uri.size downTo 0) {
+              if(j == 0){
+                  startActivity(
+                      Intent(this@ItemsList,
+                          Items::class.java)
+                  )
+              }
+              else {
+                  var sRef = FirebaseStorage.getInstance().getReference(FirebaseAuth.getInstance().uid.toString())
+                  var child_ref = sRef.child(ed.get(j - 1).text.toString())
+                  var file_ref = child_ref.child(ed.get(j - 1).toString() + ".png")
+                  file_ref.putFile(uri.get(j - 1)!!).addOnSuccessListener {
+                      var m: Uri? = null
 
-             file_ref.downloadUrl.addOnCompleteListener(){
-                 m = it.result
-                 var dBase = FirebaseDatabase.getInstance()
-                 var dRef = dBase.getReference("items")
-                 var uid = FirebaseAuth.getInstance().uid
-                 var child_db_dRef = dRef.child(uid.toString()+"/"+ed.get(j-1).text.toString())
-                 child_db_dRef.child("name").setValue(ed.get(j-1).text.toString())
-                 child_db_dRef.child("profile_pic_url").
-                     setValue(m.toString())
-                 child_db_dRef.child("price").
-                     setValue(ed1.get(j-1).text.toString())
-                 child_db_dRef.child("quantity").
-                     setValue(ed2.get(j-1).text.toString())
-                 child_db_dRef.child("list").
-                     setValue(spin1.get(j-1).selectedItem.toString())
-                 startActivity(
-                     Intent(this@ItemsList,
-                         Items::class.java)
-                 )
-             }
-         }
+                      file_ref.downloadUrl.addOnCompleteListener() {
+                          m = it.result
+                          var dBase = FirebaseDatabase.getInstance()
+                          var dRef = dBase.getReference("items")
+                          var uid = FirebaseAuth.getInstance().uid
+                          var child_db_dRef = dRef.child(
+                              uid.toString() + "/" + spin1.get(j - 1).selectedItem.toString() + "/" + ed.get(j - 1).text.toString()
+                          )
+                          child_db_dRef.child("name").setValue(ed.get(j - 1).text.toString())
+                          child_db_dRef.child("profile_pic_url").setValue(m.toString())
+                          child_db_dRef.child("price").setValue(ed1.get(j - 1).text.toString())
+                          child_db_dRef.child("quantity").setValue(ed2.get(j - 1).text.toString())
+                          child_db_dRef.child("list").setValue(spin1.get(j - 1).selectedItem.toString())
+                      }
 
-
+                  }
+              }
          }
 
       }//upload

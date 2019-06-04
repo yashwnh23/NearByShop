@@ -21,7 +21,10 @@ class EditItem : AppCompatActivity() {
 
         submit.setOnClickListener {
             var uid = FirebaseAuth.getInstance().uid
-            var ref = FirebaseDatabase.getInstance().getReference("items/"+uid.toString()+"/"+name.text.toString())
+            val list = arrayOf("list", "Grocery", "Beverages" , "Choclates")
+            list.forEach {
+
+            var ref = FirebaseDatabase.getInstance().getReference("items/"+uid.toString()+"/"+it)
             ref.child("price").setValue(price.text.toString())
                     startActivity(
                         Intent(this@EditItem,
@@ -29,6 +32,7 @@ class EditItem : AppCompatActivity() {
                     )
 
 
+        }
         }
     }
 }
