@@ -73,7 +73,7 @@ class ItemsList : AppCompatActivity() {
                               uid.toString() + "/" + spin1.get(j - 1).selectedItem.toString() + "/" + ed.get(j - 1).text.toString()
                           )
                           child_db_dRef.child("name").setValue(ed.get(j - 1).text.toString())
-                          child_db_dRef.child("profile_pic_url").setValue(m.toString())
+                          child_db_dRef.child("url").setValue(m.toString())
                           child_db_dRef.child("price").setValue(ed1.get(j - 1).text.toString())
                           child_db_dRef.child("quantity").setValue(ed2.get(j - 1).text.toString())
                           child_db_dRef.child("list").setValue(spin1.get(j - 1).selectedItem.toString())

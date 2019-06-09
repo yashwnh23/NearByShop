@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                                        startActivity(
                                            Intent(
                                                this@MainActivity,
-                                               Items::class.java
+                                               Order::class.java
                                            )
                                        )
                                    }

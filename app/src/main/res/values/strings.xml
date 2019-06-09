@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Near By Shop</string>
+    <string name="add_items">+Add Items</string>
     <string-array name="planets_array">
         <item>List</item>
         <item>Grocery</item>
@@ -11,4 +12,10 @@
         <item>Uranus</item>
         <item>Neptune</item>
     </string-array>
+    <string name="title_activity_order">Order</string>
+    <string name="tab_text_1">Recent Order</string>
+    <string name="tab_text_2">All Orders</string>
+    <string name="open_nav">Open navigation drawer</string>
+    <string name="close_nav">Close navigation drawer</string>
+
 </resources>
