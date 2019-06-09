@@ -13,8 +13,8 @@
               android:icon="@drawable/ic_cart"
         />
         <item android:id="@+id/ordersList"
-              android:title="Orders List"
-              android:icon="@drawable/ic_cart"
+              android:title="Items"
+              android:icon="@drawable/ic_items"
         />
     </group>
 
