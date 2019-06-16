@@ -42,7 +42,7 @@ class RegisterActivity : AppCompatActivity() {
 
             startActivity(
                 Intent(this@RegisterActivity,
-               Items::class.java)
+               Order::class.java)
             )
                 }
                 else{

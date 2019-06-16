@@ -8,7 +8,6 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_items_list.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -39,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                                        startActivity(
                                            Intent(
                                                this@MainActivity,
-                                               ItemsList::class.java
+                                               Order::class.java
                                            )
                                        )
                                    }
@@ -80,7 +79,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(
                 Intent(
                     this@MainActivity,
-                    Items::class.java
+                    Order::class.java
                 )
             )
         }

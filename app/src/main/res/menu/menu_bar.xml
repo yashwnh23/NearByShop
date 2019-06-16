@@ -15,7 +15,10 @@
         <item android:id="@+id/ordersList"
               android:title="Items"
               android:icon="@drawable/ic_items"
-        />
+        /><item android:id="@+id/signOut"
+                android:title="SignOut"
+                android:icon="@drawable/ic_items"
+    />
     </group>
 
 </menu>

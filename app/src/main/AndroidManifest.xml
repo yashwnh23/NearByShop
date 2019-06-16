@@ -13,15 +13,16 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".NearByShop"
+                android:label="@string/title_activity_near_by_shop"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
                 android:name=".Order"
                 android:label="@string/title_activity_order"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".EditItem">
-        </activity>
-        <activity android:name=".Items">
-        </activity>
-        <activity android:name=".ItemsList">
         </activity>
         <activity android:name=".RegisterActivity">
         </activity>

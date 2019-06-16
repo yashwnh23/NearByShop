@@ -28,7 +28,7 @@ class EditItem : AppCompatActivity() {
             ref.child("price").setValue(price.text.toString())
                     startActivity(
                         Intent(this@EditItem,
-                            Items::class.java)
+                            Order::class.java)
                     )
 
 
