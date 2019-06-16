@@ -17,7 +17,7 @@
               android:icon="@drawable/ic_items"
         /><item android:id="@+id/signOut"
                 android:title="SignOut"
-                android:icon="@drawable/ic_items"
+                android:icon="@drawable/ic_sign_out"
     />
     </group>
 
