@@ -31,7 +31,7 @@ class items_List : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_items__list, container, false)
         val context = this.context
-        val list1 = arrayOf("list", "Grocery", "Beverages" , "Choclates")
+        val list1 = arrayOf("Grocery","Snacks","Masalas","Flours","Rices", "Vegetables", "Beverages" , "Choclates","Milk Products")
         val dataAdapter = ArrayAdapter<String>(
             this.context,
             android.R.layout.simple_spinner_item, list1
@@ -79,13 +79,10 @@ class items_List : Fragment() {
                                         "url" -> {
                                             item.url = it.value.toString()
                                         }
-                                        "" -> {
-                                        }
                                     }
                                 }
                                 list.add(item)
                             }
-                            itemView.adapter = null
                             itemView.adapter = object : BaseAdapter() {
 
                                 override fun getCount(): Int = list.size

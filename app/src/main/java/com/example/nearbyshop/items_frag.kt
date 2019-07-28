@@ -162,7 +162,7 @@ class items_frag : Fragment() {
     }
 
     fun arrayAdapter(spin: Spinner) {
-        val list = arrayOf("list", "Grocery", "Beverages", "Choclates")
+        val list = arrayOf("Grocery","Snacks","Masalas","Flours","Rices", "Vegetables", "Beverages" , "Choclates","Milk Products")
         val dataAdapter = ArrayAdapter<String>(
             this.context,
             android.R.layout.simple_spinner_item, list

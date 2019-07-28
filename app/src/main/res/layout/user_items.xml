@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+>
+
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:id="@+id/img"
+            android:layout_weight="0.30"
+    />
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.18"
+            android:layout_gravity="center"
+            android:id="@+id/name"
+    />
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.18"
+            android:layout_gravity="center"
+            android:id="@+id/quantity"
+    />
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.18"
+            android:layout_gravity="center"
+            android:id="@+id/price"
+    />
+
+    <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.16"
+            android:text="add"
+            android:layout_gravity="center"
+            android:id="@+id/add"
+    />
+</LinearLayout>

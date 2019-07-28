@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(
                 Intent(
                     this@MainActivity,
-                    Order::class.java
+                    ShopsList::class.java
                 )
             )
         }

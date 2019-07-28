@@ -39,6 +39,8 @@ class RegisterActivity : AppCompatActivity() {
                 setValue(city.text.toString())
             child_dRef.child("fcm_token").
                 setValue(FirebaseInstanceId.getInstance().token)
+            child_dRef.child("uid").
+                 setValue(FirebaseAuth.getInstance().uid.toString())
 
             startActivity(
                 Intent(this@RegisterActivity,
